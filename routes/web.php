@@ -13,10 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [App\Http\Controllers\ShopHomeController::class, 'indexPage'])->name('index');
+// Admin Dashboard routes
+Route::get('/main', [\App\Http\Controllers\DashboardMainController::class, 'mainPage'])->name('dashboard');
+
+Route::get('/welcome', function () {return view('welcome');});
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
