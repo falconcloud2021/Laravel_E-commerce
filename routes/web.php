@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +18,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [App\Http\Controllers\ShopHomeController::class, 'indexPage'])->name('index');
 // Admin Dashboard routes
-Route::get('/main', [\App\Http\Controllers\DashboardMainController::class, 'mainPage'])->name('dashboard');
+Route::prefix('admin')->group(function () {
+    Route::get('/main', [DashboardController::class, 'mainPage']);
+    Route::resource('/products', ProductController::class);
+    Route::resource('/categories', CategoryController::class);
+});
 
 Route::get('/welcome', function () {return view('welcome');});
 
